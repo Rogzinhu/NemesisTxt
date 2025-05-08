@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fragmentos do Vazio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo Fragmentos do Vazio" class="logo">
+        </div>
+        <div class="navigation">
+            <a href="#history" class="nav-button">História</a>
+            <a href="#creators" class="nav-button">Criadores</a>
+            <a href="#admin" class="nav-button" id="admin-link">Administração</a>
+        </div>
+    </header>
+
+    <!-- Tela Inicial -->
+    <section id="welcome">
+        <div class="welcome-message">
+            <h1>Bem-vindo ao mundo de Fragmentos do Vazio</h1>
+            <p>Acompanhe a jornada, descubra a história e conheça os criadores.</p>
+            <button onclick="showHistory()">Conheça a História</button>
+        </div>
+    </section>
+
+    <!-- Seção História -->
+    <section id="history">
+        <h2>História de Fragmentos do Vazio</h2>
+        <p>Bem-vindo ao mundo de Fragmentos do Vazio, onde a humanidade recomeça após um colapso devastador. Unidos em uma colônia provisória, os sobreviventes começaram a reconstruir suas vidas, mas uma voz misteriosa chama cada um deles para um caminho próprio... e a queda humana parece ser inevitável.</p>
+        <p>Enquanto as vozes do vazio ecoam, eles se dividem: os Éterios, que buscam o poder da magia; os Ferronatos, que desejam reconstituir o mundo com a força da tecnologia; e os Arquivistas, que buscam liderar com conhecimento e poder. O ciclo de destruição e reconstrução se repete...</p>
+    </section>
+
+    <!-- Seção Criadores -->
+    <section id="creators">
+        <h2>Criadores de Conteúdo</h2>
+        <div class="creators-grid" id="creators-grid">
+            <!-- Os criadores de conteúdo serão exibidos aqui -->
+        </div>
+    </section>
+
+    <!-- Seção Admin (Protegida por Senha) -->
+    <section id="admin" class="admin-section" style="display: none;">
+        <h2>Área Administrativa</h2>
+        <form id="admin-login-form">
+            <input type="password" id="admin-password" placeholder="Senha" required>
+            <button type="submit">Entrar</button>
+        </form>
+        <div id="admin-content" style="display: none;">
+            <h3>Adicionar Criador</h3>
+            <form id="creator-form">
+                <input type="file" id="creator-photo" accept="image/*" required>
+                <input type="text" id="creator-name" placeholder="Nome do Criador" required>
+                <input type="url" id="creator-twitch" placeholder="URL da Twitch" required>
+                <button type="submit">Adicionar Criador</button>
+            </form>
+        </div>
+    </section>
+
+    <script src="app.js"></script>
+</body>
+</html>

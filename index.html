@@ -1,67 +1,349 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fragmentos do Vazio</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fragmentos do Vazio</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap">
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Orbitron', sans-serif;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      overflow-x: hidden;
+      transition: background 0.3s;
+    }
+
+    .blur-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      backdrop-filter: blur(10px);
+      z-index: -1;
+    }
+
+    header {
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 10;
+    }
+
+    header nav a {
+      color: white;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .main-screen {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      color: white;
+    }
+
+    .logo {
+      border-radius: 30px;
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      margin-bottom: 1rem;
+    }
+
+    #startBtn {
+      display: none;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      border: none;
+      background: #444;
+      color: white;
+      cursor: pointer;
+      border-radius: 10px;
+    }
+
+    section {
+      padding: 6rem 2rem 2rem;
+      color: white;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+
+    .creator-card {
+      background: rgba(255,255,255,0.05);
+      padding: 1rem;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .creator-card img {
+      width: 100px;
+      height: 100px;
+      border-radius: 8px;
+      object-fit: cover;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body style="background-image: url('seu-fundo.jpg');">
+  <div class="blur-overlay"></div>
+
+  <header>
+    <div>Fragmentos do Vazio</div>
+    <nav>
+      <a onclick="scrollToSection('historia')">História</a>
+      <a onclick="scrollToSection('criadores')">Criadores</a>
+    </nav>
+  </header>
+
+  <div class="main-screen" id="intro">
+    <img src="logo.png" class="logo" alt="Logo" />
+    <button id="startBtn" onclick="scrollToSection('historia')">Conhecer a História</button>
+  </div>
+
+  <section id="historia">
+    <h2>🌱 Início da Jornada</h2>
+    <p>No início, vocês estão juntos.<br>
+    Vivem no mesmo assentamento, compartilham recursos, constroem uma esperança.<br>
+    Mas a harmonia é frágil.<br>
+    As vozes não calam. As diferenças crescem.<br>
+    E os Fragmentos do Vazio... aguardam serem reclamados.</p>
+
+    <p>A humanidade teve uma nova chance. Começou do zero.<br>
+    Mas onde há medo, nasce desconfiança.<br>
+    Onde há poder, nasce cobiça.<br>
+    E o ciclo... recomeça.</p>
+
+    <h3>🌌 Vozes na Escuridão</h3>
+    <p>Alguns ouviram ecos sussurrando em sonhos.<br>
+    Outros sentiram uma presença — uma vontade.<br>
+    Três vozes despertaram o mundo fragmentado...</p>
+
+    <h3>🔮 Os Despertos</h3>
+    <p>Toques do desconhecido marcaram certos humanos. Chamados para algo além da compreensão. Esses são os Despertos.</p>
+
+    <ul>
+      <li><strong>🜁 Éterios</strong>: Moldam o mundo com a magia fluida que sentem no ar.</li>
+      <li><strong>⚙️ Ferronatos</strong>: Reconstroem com metal e lógica. Programam a realidade.</li>
+      <li><strong>📚 Arquivistas</strong>: Influenciam pela palavra, estratégia e manipulação.</li>
+    </ul>
+
+    <p>Esses dons não são bênçãos. São convites... para reconstruir — ou destruir.</p>
+  </section>
+
+  <section id="criadores">
+    <h2>🎥 Criadores de Conteúdo</h2>
+    <div class="grid" id="creatorGrid">
+      <!-- Criadores serão inseridos dinamicamente -->
+    </div>
+  </section>
+
+  <script>
+    // Aparecer botão após 3s
+    window.onload = () => {
+      setTimeout(() => {
+        document.getElementById('startBtn').style.display = 'block';
+      }, 3000);
+    };
+
+    function scrollToSection(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Simulação de banco de dados com array local
+    const creators = [
+      {
+        name: "StreamerZero",
+        twitch: "https://twitch.tv/streamerzero",
+        image: "creator1.jpg"
+      },
+      {
+        name: "LunaDark",
+        twitch: "https://twitch.tv/lunadark",
+        image: "creator2.jpg"
+      }
+    ];
+
+    const grid = document.getElementById('creatorGrid');
+    creators.forEach(c => {
+      const div = document.createElement('div');
+      div.className = 'creator-card';
+      div.innerHTML = `
+        <img src="${c.image}" alt="${c.name}" />
+        <h3>${c.name}</h3>
+        <a href="${c.twitch}" target="_blank">Twitch</a>
+      `;
+      grid.appendChild(div);
+    });
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administração - Nêmesis</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+    .header {
+      background-color: #1c1c1c;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 3px solid #444;
+    }
+    .content {
+      padding: 20px;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    .form-container, .creator-list {
+      margin-top: 20px;
+    }
+    .form-container input, .form-container button {
+      padding: 10px;
+      margin: 10px 0;
+      width: 100%;
+      font-size: 1rem;
+    }
+    .form-container input[type="file"] {
+      padding: 0;
+      width: 100%;
+    }
+    .creator-card {
+      display: inline-block;
+      width: 150px;
+      margin: 10px;
+      background-color: #333;
+      text-align: center;
+      padding: 15px;
+      border-radius: 10px;
+    }
+    .creator-card img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+    .creator-card button {
+      background-color: #1e90ff;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-size: 1rem;
+      border-radius: 5px;
+    }
+    .creator-card button:hover {
+      background-color: #4682b4;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Cabeçalho -->
-    <header>
-        <div class="logo-container">
-            <img src="logo.png" alt="Logo Fragmentos do Vazio" class="logo">
-        </div>
-        <div class="navigation">
-            <a href="#history" class="nav-button">História</a>
-            <a href="#creators" class="nav-button">Criadores</a>
-            <a href="#admin" class="nav-button" id="admin-link">Administração</a>
-        </div>
-    </header>
+  <div class="header">
+    <h1>Administração de Criadores - Nêmesis</h1>
+  </div>
 
-    <!-- Tela Inicial -->
-    <section id="welcome">
-        <div class="welcome-message">
-            <h1>Bem-vindo ao mundo de Fragmentos do Vazio</h1>
-            <p>Acompanhe a jornada, descubra a história e conheça os criadores.</p>
-            <button onclick="showHistory()">Conheça a História</button>
-        </div>
-    </section>
+  <div class="content">
+    <!-- Formulário de cadastro de criador -->
+    <div class="form-container">
+      <h2>Cadastrar Criador de Conteúdo</h2>
+      <form id="creator-form">
+        <input type="text" id="creator-name" placeholder="Nome do Criador" required />
+        <input type="url" id="creator-twitch" placeholder="Link da Twitch" required />
+        <input type="file" id="creator-image" accept="image/*" required />
+        <button type="submit">Cadastrar Criador</button>
+      </form>
+    </div>
 
-    <!-- Seção História -->
-    <section id="history">
-        <h2>História de Fragmentos do Vazio</h2>
-        <p>Bem-vindo ao mundo de Fragmentos do Vazio, onde a humanidade recomeça após um colapso devastador. Unidos em uma colônia provisória, os sobreviventes começaram a reconstruir suas vidas, mas uma voz misteriosa chama cada um deles para um caminho próprio... e a queda humana parece ser inevitável.</p>
-        <p>Enquanto as vozes do vazio ecoam, eles se dividem: os Éterios, que buscam o poder da magia; os Ferronatos, que desejam reconstituir o mundo com a força da tecnologia; e os Arquivistas, que buscam liderar com conhecimento e poder. O ciclo de destruição e reconstrução se repete...</p>
-    </section>
+    <!-- Exibição dos criadores cadastrados -->
+    <div class="creator-list">
+      <h2>Lista de Criadores</h2>
+      <div id="creator-cards-container"></div>
+    </div>
+  </div>
 
-    <!-- Seção Criadores -->
-    <section id="creators">
-        <h2>Criadores de Conteúdo</h2>
-        <div class="creators-grid" id="creators-grid">
-            <!-- Os criadores de conteúdo serão exibidos aqui -->
-        </div>
-    </section>
+  <script>
+    // Array simulado de criadores
+    let creators = [];
 
-    <!-- Seção Admin (Protegida por Senha) -->
-    <section id="admin" class="admin-section" style="display: none;">
-        <h2>Área Administrativa</h2>
-        <form id="admin-login-form">
-            <input type="password" id="admin-password" placeholder="Senha" required>
-            <button type="submit">Entrar</button>
-        </form>
-        <div id="admin-content" style="display: none;">
-            <h3>Adicionar Criador</h3>
-            <form id="creator-form">
-                <input type="file" id="creator-photo" accept="image/*" required>
-                <input type="text" id="creator-name" placeholder="Nome do Criador" required>
-                <input type="url" id="creator-twitch" placeholder="URL da Twitch" required>
-                <button type="submit">Adicionar Criador</button>
-            </form>
-        </div>
-    </section>
+    // Função para mostrar a lista de criadores
+    function displayCreators() {
+      const container = document.getElementById('creator-cards-container');
+      container.innerHTML = ''; // Limpa a lista antes de adicionar
+      creators.forEach(creator => {
+        const creatorCard = document.createElement('div');
+        creatorCard.classList.add('creator-card');
+        
+        creatorCard.innerHTML = `
+          <img src="${creator.image}" alt="Foto de ${creator.name}" />
+          <h3>${creator.name}</h3>
+          <a href="${creator.twitch}" target="_blank"><button>Acessar Twitch</button></a>
+        `;
+        
+        container.appendChild(creatorCard);
+      });
+    }
 
-    <script src="app.js"></script>
+    // Função para lidar com o envio do formulário de criador
+    document.getElementById('creator-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      const name = document.getElementById('creator-name').value;
+      const twitch = document.getElementById('creator-twitch').value;
+      const imageFile = document.getElementById('creator-image').files[0];
+      
+      if (imageFile) {
+        const reader = new FileReader();
+        
+        reader.onloadend = function() {
+          const imageData = reader.result;
+          
+          const creator = {
+            name: name,
+            twitch: twitch,
+            image: imageData // Salva a imagem como base64
+          };
+          
+          creators.push(creator); // Adiciona o criador ao array
+          displayCreators(); // Atualiza a lista de criadores
+          
+          // Limpa o formulário após o envio
+          document.getElementById('creator-form').reset();
+        };
+        
+        reader.readAsDataURL(imageFile); // Lê a imagem como base64
+      }
+    });
+
+    // Exibe os criadores ao carregar a página
+    displayCreators();
+  </script>
+
 </body>
 </html>
+
